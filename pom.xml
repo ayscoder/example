@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ays</groupId>
     <artifactId>example</artifactId>
-    <version>2.0.0-1</version>
+    <version>2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <scm>
         <url>https://github.com/ayscoder/example</url>
         <connection>scm:git:git://github.com/ayscoder/example.git</connection>
         <developerConnection>scm:git:git@github.com:ayscoder/example.git</developerConnection>
-      <tag>example-2.0.0-1</tag>
+      <tag>HEAD</tag>
   </scm>
     <properties>
         <java.version>1.8</java.version>
