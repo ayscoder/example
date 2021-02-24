@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>example</artifactId>
+        <groupId>com.ays</groupId>
+        <version>2.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>example-common</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.ays</groupId>
+            <artifactId>example-entities</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ays</groupId>
+            <artifactId>core-dao</artifactId>
+        </dependency>
+    </dependencies>
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>central</id>-->
+<!--            <name>DESKTOP-49THCU4-releases</name>-->
+<!--            <url>http://localhost:8081/artifactory/libs-release-local</url>-->
+<!--        </repository>-->
+<!--        <snapshotRepository>-->
+<!--            <id>snapshot</id>-->
+<!--            <name>DESKTOP-49THCU4-snapshots</name>-->
+<!--            <url>http://localhost:8081/artifactory/libs-snapshot-local</url>-->
+<!--        </snapshotRepository>-->
+<!--    </distributionManagement>-->
+</project>
