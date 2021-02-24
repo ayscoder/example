@@ -7,6 +7,11 @@
         <version>2.0-SNAPSHOT</version>
     </parent><artifactId>example-api</artifactId>
     <packaging>war</packaging>
+    <scm>
+        <url>https://github.com/ayscoder/example</url>
+        <connection>scm:git:git://github.com/ayscoder/example.git</connection>
+        <developerConnection>scm:git:git@github.com:ayscoder/example.git</developerConnection>
+    </scm>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
