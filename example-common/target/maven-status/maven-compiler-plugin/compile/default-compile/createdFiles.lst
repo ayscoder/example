@@ -1,7 +1,0 @@
-com\ays\common\dao\ExampleDao.class
-com\ays\common\dao\ExampleNativeQueryDao.class
-com\ays\common\constants\CommonConstants.class
-com\ays\common\dto\mapper\ExampleMapper.class
-com\ays\common\util\CommonUtils.class
-com\ays\common\dto\ExampleDto$ExampleDtoBuilder.class
-com\ays\common\dto\ExampleDto.class
