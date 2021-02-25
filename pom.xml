@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ays</groupId>
     <artifactId>example</artifactId>
@@ -9,10 +10,12 @@
         <url>https://github.com/ayscoder/example</url>
         <connection>scm:git:git://github.com/ayscoder/example.git</connection>
         <developerConnection>scm:git:git@github.com:ayscoder/example.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     <properties>
         <java.version>1.8</java.version>
+        <core.dao.version>2.0.0-2</core.dao.version>
+        <core.entities.version>2.0.0-1</core.entities.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -20,12 +23,12 @@
             <dependency>
                 <groupId>com.ays</groupId>
                 <artifactId>core-entities</artifactId>
-                <version>2.0.0-1</version>
+                <version>${core.entities.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.ays</groupId>
                 <artifactId>core-dao</artifactId>
-                <version>2.0.0-1</version>
+                <version>${core.dao.version}</version>
             </dependency>
             <!-- Child Modules (example common, example entities -->
             <dependency>
@@ -38,40 +41,9 @@
                 <artifactId>example-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!-- Test Dependencies -->
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>3.1.0</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
-                <version>5.7.0</version>
-                <scope>test</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>DESKTOP-49THCU4-releases</name>
-            <url>http://localhost:8081/artifactory/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshot</id>
-            <name>DESKTOP-49THCU4-snapshots</name>
-            <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -92,37 +64,149 @@
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
                 </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-shade-plugin</artifactId>-->
+<!--                    <version>3.2.2</version>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <phase>package</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>shade</goal>-->
+<!--                            </goals>-->
+<!--                            <configuration>-->
+<!--                                <shadedArtifactAttached>true</shadedArtifactAttached>-->
+<!--                                <minimizeJar>false</minimizeJar>-->
+<!--                                <artifactSet/>-->
+<!--                                <filters>-->
+<!--                                    <filter>-->
+<!--                                        <artifact>*:*</artifact>-->
+<!--                                        <excludes>-->
+<!--                                            <exclude>META-INF/*.SF</exclude>-->
+<!--                                            <exclude>META-INF/*.DSA</exclude>-->
+<!--                                            <exclude>META-INF/*.RSA</exclude>-->
+<!--                                        </excludes>-->
+<!--                                    </filter>-->
+<!--                                </filters>-->
+<!--                            </configuration>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
+                <!--
+                The surefire plugin can work with the test frameworks JUnit and TestNG.
+                No matter which framework we use, the behavior of surefire is the same.
+                By default, surefire automatically includes all test classes whose
+                name starts with Test, or ends with Test, Tests or TestCase.
+                We can change this configuration using the excludes and includes parameters, however
+            -->
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>3.2.2</version>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.0</version>
+                    <configuration>
+                        <!--                    <excludes>-->
+                        <!--                        <exclude>ApiExampleAllApplicationTests.java</exclude>-->
+                        <!--                        <exclude>ExampleIntegrationTests.java</exclude>-->
+                        <!--                    </excludes>-->
+                    </configuration>
+                </plugin>
+                <!--  JaCoCo Maven plugin to generate a code coverage report for a Java project -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.5</version>
+                    <!-- How to exclude files in jacoco coverage (maven configuration)
+                    Examples:
+                    exclude classes in package com.acme.models whose name starts with Spring
+                    <exclude>com/acme/models/Spring*</exclude>
+                    exclude classes in package com.acme.api whose name ends with Api
+                    <exclude>com/acme/api/*Api.class</exclude>
+                    exclude all classes in package com.acme.generated
+                    <exclude>com/acme/generated/**/*</exclude>
+                    -->
+                    <!--                    <configuration>-->
+                    <!--                        <excludes>-->
+                    <!--                            <exclude>**/com/ays/example/all/*</exclude>-->
+                    <!--                            <exclude>**/com/ays/example/all/dto/Pair*</exclude>-->
+                    <!--                            <exclude>**/com/ays/example/all/dto/Triplet*</exclude>-->
+                    <!--                        </excludes>-->
+                    <!--                    </configuration>-->
                     <executions>
                         <execution>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <!-- attached to Maven test phase -->
+                        <execution>
+                            <id>report</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.6.0.1398</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.1.1</version>
+                    <configuration>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id>
                             <phase>package</phase>
                             <goals>
-                                <goal>shade</goal>
+                                <goal>single</goal>
                             </goals>
-                            <configuration>
-                                <shadedArtifactAttached>true</shadedArtifactAttached>
-                                <minimizeJar>false</minimizeJar>
-                                <artifactSet />
-                                <filters>
-                                    <filter>
-                                        <artifact>*:*</artifact>
-                                        <excludes>
-                                            <exclude>META-INF/*.SF</exclude>
-                                            <exclude>META-INF/*.DSA</exclude>
-                                            <exclude>META-INF/*.RSA</exclude>
-                                        </excludes>
-                                    </filter>
-                                </filters>
-                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>DESKTOP-49THCU4-releases</name>
+            <url>http://localhost:8081/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshot</id>
+
+            <name>DESKTOP-49THCU4-snapshots</name>
+            <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>central</id>-->
+    <!--            <name>DESKTOP-49THCU4-releases</name>-->
+    <!--            <url>http://localhost:8081/artifactory/libs-release-local</url>-->
+    <!--        </repository>-->
+    <!--    </repositories>-->
     <modules>
         <module>example-entities</module>
         <module>example-common</module>
