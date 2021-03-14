@@ -1,13 +1,17 @@
 package com.ays.example.service;
 
-import com.ays.common.dao.ExampleDao;
 import com.ays.common.dao.ExampleNativeQueryDao;
 import com.ays.common.dto.ExampleDto;
+//import com.ays.encrypt.PasswordEncryptor;
 import com.ays.entities.Example;
 import com.ays.exception.BadRequestException;
+import com.ays.util.RestTemplateHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,28 +26,31 @@ import static com.ays.example.enums.ApiMessage.DELETE_BY_INVALID_EXAMPLE_ID;
 @Transactional
 public class ExampleService {
 
+    private final RestTemplateHelper restTemplateHelper;
+
     private final ExampleNativeQueryDao exampleNativeQueryDao;
 
-    private final ExampleDao exampleDao;
-
-    public ExampleService(ExampleNativeQueryDao exampleNativeQueryDao, ExampleDao exampleDao) {
+    public ExampleService(ExampleNativeQueryDao exampleNativeQueryDao, RestTemplateHelper restTemplateHelper) {//}, RestTemplateBuilder builder) {
         this.exampleNativeQueryDao = exampleNativeQueryDao;
-        this.exampleDao = exampleDao;
+        this.restTemplateHelper = restTemplateHelper;
     }
 
     /**
      * Create Example
      *
      * @param reqId requestId
-     * @param dto dto
+     * @param dto   dto
      */
-    public void createExample(String reqId, ExampleDto dto) {
+    public Example createExample(String reqId, ExampleDto dto) {
         if (dto == null || (dto.getName() == null || dto.getName().equals(""))) {
             throw new BadRequestException(reqId, DELETE_BY_INVALID_EXAMPLE_ID.getCode(), DELETE_BY_INVALID_EXAMPLE_ID.getReason(),
                     DELETE_BY_INVALID_EXAMPLE_ID.getMessage());
         }
-        exampleNativeQueryDao.saveExample(ExampleDto.from(dto));
+        Example example = exampleNativeQueryDao.saveExample(ExampleDto.from(dto));
+        return example;
     }
+
+
 
     /**
      * Find all examples
@@ -51,12 +58,30 @@ public class ExampleService {
      * @return List of example dto
      */
     public List<ExampleDto> findAllExamples() {
+        //        String forObject = restTemplate.getForObject("https://reqres.in/api/users?page=2", String.class);
+        //        log.info("## forObject: {}", forObject);
+//        String forEntity = restTemplateHelper.getForEntity(String.class, "https://reqres.in/api/users/2");
+//        log.info("## forObject: {}", forEntity);
+
+        //        String password = "yawinpassword";
+        //        String encodedPassword = passwordEncryptor.encodePassword(password);
+        //        log.info("## Password is         : " + password);
+        //        log.info("## Encoded Password is : " + encodedPassword);
+        //
+        //        boolean isPasswordMatch = passwordEncryptor.matchPassword(password, encodedPassword);
+        //        log.info("## Password : " + password + "   isPasswordMatch    : " + isPasswordMatch);
+        //
+        //        password = "yawin";
+        //        isPasswordMatch = passwordEncryptor.matchPassword(password, encodedPassword);
+        //        log.info("## Password : " + password + "           isPasswordMatch    : " + isPasswordMatch);
+
         List<ExampleDto> exampleDtoList = new ArrayList<>();
-        for (Example ex : exampleDao.findAll()) {
+        List<Example> all = exampleNativeQueryDao.getAllExamples();
+        for (Example ex : all) {
             exampleDtoList
                     .add(ExampleDto.builder().id(ex.getId()).name(ex.getName()).description(ex.getDescription())
-                            .createdOn(ex.getCreatedOn())
-                            .updatedOn(ex.getUpdatedOn()).build());
+                            .createdTime(ex.getCreatedTime())
+                            .lastModifiedTime(ex.getLastModifiedTime()).build());
         }
         return exampleDtoList;
     }
@@ -74,7 +99,7 @@ public class ExampleService {
     /**
      * Update example by id
      *
-     * @param id id
+     * @param id         id
      * @param exampleDto Example dto
      */
     public void updateExampleById(String id, ExampleDto exampleDto) {

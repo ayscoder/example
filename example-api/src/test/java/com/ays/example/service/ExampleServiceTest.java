@@ -1,6 +1,6 @@
 package com.ays.example.service;
 
-import com.ays.common.dao.ExampleDao;
+//import com.ays.common.dao.ExampleDao;
 import com.ays.common.dao.ExampleNativeQueryDao;
 import com.ays.common.dto.ExampleDto;
 import com.ays.exception.BadRequestException;
@@ -23,8 +23,8 @@ public class ExampleServiceTest {
     @Mock
     ExampleNativeQueryDao exampleNativeQueryDao;
 
-    @Mock
-    ExampleDao exampleDao;
+//    @Mock
+//    ExampleDao exampleDao;
 
     @BeforeEach
     public void setup() {

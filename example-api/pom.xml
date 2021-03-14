@@ -12,18 +12,31 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <core.api.version>2.0.0-2</core.api.version>
+        <core.api.version>2.0-SNAPSHOT</core.api.version>
     </properties>
     <dependencies>
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- CORE API Dependency to make API component based on SpringBootFramework -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <dependency>
             <groupId>com.ays</groupId>
             <artifactId>core-api</artifactId>
             <version>${core.api.version}</version>
         </dependency>
-        <!-- Child module dependency -->
+<!--        <dependency>-->
+<!--            <groupId>com.ays</groupId>-->
+<!--            <artifactId>core-security</artifactId>-->
+<!--        </dependency>-->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Child module dependency                                                -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <dependency>
             <groupId>com.ays</groupId>
             <artifactId>example-common</artifactId>
         </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+        <!-- Third party dependency                                                 -->
+        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     </dependencies>
 </project>

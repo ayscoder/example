@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author user created on 13/01/2021
@@ -20,15 +22,15 @@ public class ExampleDto implements Serializable {
     private Long id;
     private String name;
     private String description;
-    private String createdOn;
-    private String updatedOn;
+    private String createdTime;
+    private String lastModifiedTime;
 
     public static Example from(ExampleDto dto) {
         Example example = new Example();
         example.setName(dto.getName());
         example.setDescription(dto.getDescription());
-        example.setCreatedOn(String.valueOf(Calendar.getInstance().getTimeInMillis()));
-        example.setUpdatedOn(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+        example.setCreatedTime(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+        example.setLastModifiedTime(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         return example;
     }
 
@@ -37,8 +39,8 @@ public class ExampleDto implements Serializable {
         exampleDto.setId(example.getId());
         exampleDto.setName(example.getName());
         exampleDto.setDescription(example.getDescription());
-        exampleDto.setCreatedOn(example.getCreatedOn());
-        exampleDto.setUpdatedOn(example.getUpdatedOn());
+        exampleDto.setCreatedTime(example.getCreatedTime());
+        exampleDto.setLastModifiedTime(example.getLastModifiedTime());
         return exampleDto;
     }
 }

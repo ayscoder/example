@@ -13,6 +13,8 @@ public class ExampleMapper implements RowMapper<Example> {
 		example.setId(resultSet.getLong("id"));
 		example.setName(resultSet.getString("name"));
 		example.setDescription(resultSet.getString("description"));
+		example.setCreatedTime(resultSet.getString("createdTime"));
+		example.setLastModifiedTime(resultSet.getString("lastModifiedTime"));
 		return example;
 	}
 }

@@ -14,12 +14,15 @@
     </scm>
     <properties>
         <java.version>1.8</java.version>
+        <core.entities.version>2.0.0-2</core.entities.version>
         <core.dao.version>2.0.0-2</core.dao.version>
-        <core.entities.version>2.0.0-1</core.entities.version>
+        <core.security.version>2.0-SNAPSHOT</core.security.version>
     </properties>
     <dependencyManagement>
         <dependencies>
-            <!-- Core Modules (core-api, core-entities, core-dao, core-util -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+            <!-- Core Modules (core-api, core-entities, core-dao, core-util)                    -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
             <dependency>
                 <groupId>com.ays</groupId>
                 <artifactId>core-entities</artifactId>
@@ -30,7 +33,14 @@
                 <artifactId>core-dao</artifactId>
                 <version>${core.dao.version}</version>
             </dependency>
-            <!-- Child Modules (example common, example entities -->
+<!--            <dependency>-->
+<!--                <groupId>com.ays</groupId>-->
+<!--                <artifactId>core-security</artifactId>-->
+<!--                <version>${core.security.version}</version>-->
+<!--            </dependency>-->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+            <!-- Child Modules (example common, example entities                                -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
             <dependency>
                 <groupId>com.ays</groupId>
                 <artifactId>example-entities</artifactId>
@@ -41,6 +51,9 @@
                 <artifactId>example-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- Third party jars                                                              -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         </dependencies>
     </dependencyManagement>
     <build>
@@ -157,23 +170,22 @@
     <distributionManagement>
         <repository>
             <id>central</id>
-            <name>DESKTOP-49THCU4-releases</name>
+            <name>central</name>
             <url>http://localhost:8081/artifactory/libs-release-local</url>
         </repository>
         <snapshotRepository>
             <id>snapshot</id>
-
-            <name>DESKTOP-49THCU4-snapshots</name>
+            <name>snapshot</name>
             <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
-    <!--    <repositories>-->
-    <!--        <repository>-->
-    <!--            <id>central</id>-->
-    <!--            <name>DESKTOP-49THCU4-releases</name>-->
-    <!--            <url>http://localhost:8081/artifactory/libs-release-local</url>-->
-    <!--        </repository>-->
-    <!--    </repositories>-->
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>central</name>
+            <url>http://localhost:8081/artifactory/libs-release-local</url>
+        </repository>
+    </repositories>
     <modules>
         <module>example-entities</module>
         <module>example-common</module>
